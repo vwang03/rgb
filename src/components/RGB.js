@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useRGB from "../hooks/useRGB";
 import Grid from "./Grid"
-import Modal from "./modal";
+import Modal from "./modal"
+import ColorBox from "./colorBox";
 
 export default function RGB({ solution }) {
     const { currentGuess, handleKeyUp, guesses, isCorrect, turn } = useRGB(solution)
@@ -24,10 +25,14 @@ export default function RGB({ solution }) {
         return () => window.removeEventListener('keyup', handleKeyUp)
     }, [handleKeyUp, isCorrect, turn])
 
+    let r = solution[0]
+    let g = solution[1]
+    let b = solution[2]
+
     return (
         <div>
-            <div>solution - {solution}</div>
-            <div>current guess: {currentGuess}</div>
+            <ColorBox red={r} green={g} blue={b} /> 
+            {/* <div>current guess: {currentGuess}</div> */}
             <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
             {showModal && <Modal isCorrect={isCorrect} turn={turn} solution={solution} />}
         </div>
